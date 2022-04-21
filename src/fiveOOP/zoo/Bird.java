@@ -6,22 +6,12 @@ public class Bird extends Animal{
         super(name, age, color);
         this.canRun = randomBorders(1,8);
         this.canJump = randomBorders(0.1,0.5);
-    }
-
-    @Override
-    public boolean run(int a) {
-        return a <= this.canRun;
+        this.type = "Bird";
     }
 
     @Override
     public boolean swim(int a) {
-        System.out.print(" Wow Cat can not to swim !!!");
+        System.out.print("Wow Bird can not to swim !!!");
         return false;
     }
-
-    @Override
-    public boolean jump(double a) {
-        return a <= this.canJump;
-    }
-
 }

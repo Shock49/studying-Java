@@ -1,0 +1,8 @@
+1 Create a class "Employee" with fields: full name, position, phone number, salary, age;
+2 The class constructor must fill in these fields when the object is created;
+3 Inside the “Employee” class, write methods that return the value of each field;
+4 Use the methods from paragraph 3 to display the full name and position.
+5 Create an array of 5 employees. With the help of a loop, display information only about employees over 40 years old;
+6* Create a method that raises the salary of all employees over 45 by 5000.
+7** Write methods (taking an array of employees as input) that calculate the average age
+ and average salary of employees, output the results to the console.
