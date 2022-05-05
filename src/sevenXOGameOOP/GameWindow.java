@@ -19,13 +19,12 @@ public class GameWindow extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("Game X / O");
-        setVisible(true);
 
-        map = new Map();
-        SettingGame settingGame = new SettingGame(this);
-        JPanel botPanel = new JPanel(new GridLayout(1,2));
-        Button btnStart = new Button("Start");
-        Button btnExit = new Button("Exit");
+
+
+
+        JButton btnStart = new JButton("Start");
+        JButton btnExit = new JButton("Exit");
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,11 +38,14 @@ public class GameWindow extends JFrame {
             }
         });
 
-        botPanel.add(btnStart);
-        botPanel.add(btnExit);
-        add(botPanel,BorderLayout.SOUTH);
+        map = new Map();
+        JPanel panelBot = new JPanel(new GridLayout(1,2));
+        panelBot.add(btnStart);
+        panelBot.add(btnExit);
+        add(panelBot,BorderLayout.SOUTH);
         add(map,BorderLayout.CENTER);
-
+        settingGame = new SettingGame(this);
+        setVisible(true);
     }
 
     void startNewGame(int mod, int fieldSizeX, int fieldSizeY, int winLength){

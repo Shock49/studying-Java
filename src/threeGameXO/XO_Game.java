@@ -47,15 +47,15 @@ public class XO_Game {
     }
     private static void  turnAi(){
         int x,y;
-        if(!aiTryToWin()){
-            if(!aiToInterrupt()) {
-                do {
-                    x = RANDOM.nextInt(fieldSizex);
-                    y = RANDOM.nextInt(fieldSizey);
-                } while (!checkIsEmpty(x, y));
-                field[y][x] = AI_DOT;
-            }
-        }
+        if(aiTryToWin())return;
+        if(aiToInterrupt()) return;
+        do {
+            x = RANDOM.nextInt(fieldSizex);
+            y = RANDOM.nextInt(fieldSizey);
+        } while (!checkIsEmpty(x, y));
+        field[y][x] = AI_DOT;
+
+
     }
 
     private static boolean checkIsField(int x, int y){

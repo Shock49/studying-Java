@@ -22,7 +22,6 @@ public class SettingGame extends JFrame {
     private JRadioButton btnAiVSHum;
     private JSlider sliderField;
     private JSlider sliderWinLength;
-    Button buttonOK;
 
     SettingGame(GameWindow gameWindow){
         this.gameWindow = gameWindow;
@@ -32,7 +31,7 @@ public class SettingGame extends JFrame {
         setLayout(new GridLayout(10,1));
         addModeGame();
         addFieldControl();
-        buttonOK = new Button("OK");
+        JButton buttonOK = new JButton("OK");
         buttonOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,8 +59,8 @@ public class SettingGame extends JFrame {
     void addFieldControl(){
         JLabel lbFieldSize = new JLabel(FIELD_SIZE_PREFIX + FIELD_SIZE_MIN);
         JLabel lbWinLength = new JLabel(WIN_LENGTH_PREFIX + WIN_LENGTH);
-        sliderField = new JSlider(FIELD_SIZE_MIN,FIELD_SIZE_MAX);
-        sliderWinLength = new JSlider(WIN_LENGTH,FIELD_SIZE_MIN);
+        sliderField = new JSlider(FIELD_SIZE_MIN,FIELD_SIZE_MAX,FIELD_SIZE_MIN);
+        sliderWinLength = new JSlider(WIN_LENGTH,FIELD_SIZE_MIN,FIELD_SIZE_MIN);
         sliderField.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
