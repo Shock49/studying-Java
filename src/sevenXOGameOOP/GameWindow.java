@@ -29,6 +29,8 @@ public class GameWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 settingGame.setVisible(true);
+                map.removeMouseListener(map.ml);
+
             }
         });
         btnExit.addActionListener(new ActionListener() {

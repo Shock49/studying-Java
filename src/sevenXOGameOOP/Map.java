@@ -1,15 +1,16 @@
 package sevenXOGameOOP;
 
-import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Random;
 
 public class Map extends JPanel {
+
     public static final int MODE_HVH = 0;
     public static final int MODE_HVA = 1;
 
@@ -33,6 +34,7 @@ public class Map extends JPanel {
 
 
     private static final Random RANDOM = new Random();
+    MouseListener ml;
 
     private int[][] field;
     private int cellWidth;
@@ -40,9 +42,11 @@ public class Map extends JPanel {
     private int fieldSizeX;
     private int fieldSizeY;
     private int winLength;
-    private int mod;
+    private int modGame;
     private boolean isGameOver;
     private int statusGameOver;
+    private int moveNow;
+    int howMoveNext;
 
     private Image circle;
     private Image cross;
@@ -61,13 +65,15 @@ public class Map extends JPanel {
 
         this.fieldSizeX = fieldSizeX;
         this.fieldSizeY = fieldSizeY;
-        this.mod = mod;
+        this.modGame = mod;
         this.winLength = winLength;
         cellWidth = getWidth() / fieldSizeX;
         cellHeight = getHeight() / fieldSizeY;
         this.field = new int[fieldSizeY][fieldSizeX];
         fieldInit();
         isGameOver = false;
+        this.moveNow = HUMAN_DOT;
+        this.howMoveNext = -1;
         try {
             circle = ImageIO.read(Map.class.getResourceAsStream("image\\circle.png"));
             cross = ImageIO.read(Map.class.getResourceAsStream("image\\cross.png"));
@@ -82,31 +88,28 @@ public class Map extends JPanel {
             System.out.println(e.getMessage());
         }
 
-
-        addMouseListener(new MouseAdapter() {
+         ml = new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-
-                if(mod == MODE_HVA) {
-                    super.mouseReleased(e);
+                super.mouseReleased(e);
+                if(modGame == MODE_HVA) {
                     update(e);
                     repaint();
-                }else if(mod == MODE_HVH){
-                    super.mouseReleased(e);
-                   update(e, HUMAN_DOT);
-                   repaint();
-                   update(e, HUMAN_2_DOT);
-                   repaint();
+                }else if(modGame == MODE_HVH){
+                    update(e, moveNow);
+                    repaint();
+
                 }else {
-                    throw new RuntimeException("Strange mod : " + mod);
+                    throw new RuntimeException("Strange mod : " + modGame);
                 }
+                if(isGameOver) removeMouseListener(ml);
             }
-        });
+        };
+        addMouseListener(ml);
         repaint();
     }
 
     void update(MouseEvent e){
-        if(isGameOver) return;
         int cellX = e.getX() / cellWidth;
         int cellY = e.getY() / cellHeight;
         if(!checkIsField(cellX,cellY) || !checkIsEmpty(cellX,cellY))return;
@@ -137,32 +140,31 @@ public class Map extends JPanel {
                 return;
             }
     }
-    private void update(MouseEvent e, int plauer){
-        if(isGameOver) return;
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                int cellX = e.getX() / cellWidth;
-                int cellY = e.getY() / cellHeight;
-                if(!checkIsField(cellX,cellY) || !checkIsEmpty(cellX,cellY))return;
-                field[cellY][cellX] = plauer;
-                if (checkWin(plauer)){
-                    isGameOver = true;
-                    if(plauer == HUMAN_DOT) statusGameOver  = STATUS_PLAYER_1_WIN;
-                    else if(plauer == HUMAN_2_DOT) statusGameOver = STATUS_PLAYER_2_WIN;
-                    else throw new RuntimeException("Can't know plauer : " + plauer);
-                    return;
-                }
-                if (checkFullField()){
-                    isGameOver = true;
-                    statusGameOver = STATUS_DRAW;
-                    System.out.println("Draw game");
-                    return;
-                }
+    private void update(MouseEvent e, int moveNow){
+        int cellX = e.getX() / cellWidth;
+        int cellY = e.getY() / cellHeight;
+        if(!checkIsField(cellX,cellY) || !checkIsEmpty(cellX,cellY))return;
+            if(moveNow == HUMAN_DOT){
+                howMoveNext = HUMAN_DOT;
+                this.moveNow = HUMAN_2_DOT;
+            }else {
+                howMoveNext = HUMAN_2_DOT;
+                this.moveNow = HUMAN_DOT;
             }
-        });
-
+            field[cellY][cellX] = howMoveNext;
+            if (checkWin(howMoveNext)){
+                isGameOver = true;
+                if(howMoveNext == HUMAN_DOT) statusGameOver  = STATUS_PLAYER_1_WIN;
+                else if(howMoveNext == HUMAN_2_DOT) statusGameOver = STATUS_PLAYER_2_WIN;
+                else throw new RuntimeException("Can't know plauer : " + howMoveNext);
+                return;
+            }
+            if (checkFullField()){
+                isGameOver = true;
+                statusGameOver = STATUS_DRAW;
+                System.out.println("Draw game");
+                return;
+            }
     }
 
     @Override
@@ -170,7 +172,6 @@ public class Map extends JPanel {
         super.paintComponent(g);
         render(g);
     }
-
     void render(Graphics g){
         printField(g);
         for (int y = 0; y < fieldSizeY; y++) {
