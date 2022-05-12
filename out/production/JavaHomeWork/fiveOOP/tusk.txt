@@ -1,0 +1,9 @@
+1 Create classes Dog, Horse, Bird and Cat with inheritance from the Animal class.
+
+2 Animals can perform actions: run, swim, jump over an obstacle. As a parameter, each method is passed a value that means either the length of the obstacle (for running and swimming) or the height (for jumping).
+
+3 Each animal has restrictions on actions (running: cat 200 m, dog 500 m, horse 1500 m, bird 5 m, jump: cat 2 m, dog 0.5 m, horse 3 m, bird 0.2 m.; swimming: a cat and a bird cannot swim, a dog 10 m., a horse 100 m.).
+
+4 When an animal tries to perform one of these actions, it must report the result. (For example, dog1.run(150); -> result: 'The dog ran!')
+
+5 Add scatter to animals in the restrictions. That is, one dog may have a run limit of 400 m, another 600 m.

@@ -1,0 +1,4 @@
+1.Create 2 text files, approximately 50-100 characters each (does not really matter);
+2.Write a program that "glues" these files, that is, at the beginning there is text from the first file, text from the second.
+*3. Wrote a program that is often mentioned in the file.
+**4. Write a method to check if the specified word exists in the folder

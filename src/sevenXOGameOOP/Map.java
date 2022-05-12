@@ -75,15 +75,15 @@ public class Map extends JPanel {
         this.moveNow = HUMAN_DOT;
         this.howMoveNext = -1;
         try {
-            circle = ImageIO.read(Map.class.getResourceAsStream("image\\circle.png"));
-            cross = ImageIO.read(Map.class.getResourceAsStream("image\\cross.png"));
-            ln_h = ImageIO.read(Map.class.getResourceAsStream("image\\ln_h.png"));
-            ln_v = ImageIO.read(Map.class.getResourceAsStream("image\\ln_v.png"));
-            draw = ImageIO.read(Map.class.getResourceAsStream("image\\draw.png"));
-            lose = ImageIO.read(Map.class.getResourceAsStream("image\\lose.png"));
-            win = ImageIO.read(Map.class.getResourceAsStream("image\\win.png"));
-            player1 = ImageIO.read(Map.class.getResourceAsStream("image\\player1.png"));
-            player2 = ImageIO.read(Map.class.getResourceAsStream("image\\player2.png"));
+            circle = ImageIO.read(this.getClass().getResource("image/circle.png"));
+            cross = ImageIO.read(this.getClass().getResource("image/cross.png"));
+            ln_h = ImageIO.read(this.getClass().getResource("image/ln_h.png"));
+            ln_v = ImageIO.read(this.getClass().getResource("image/ln_v.png"));
+            draw = ImageIO.read(this.getClass().getResource("image/draw.png"));
+            lose = ImageIO.read(this.getClass().getResource("image/lose.png"));
+            win = ImageIO.read(this.getClass().getResource("image/win.png"));
+            player1 = ImageIO.read(this.getClass().getResource("image/player1.png"));
+            player2 = ImageIO.read(this.getClass().getResource("image/player2.png"));
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
@@ -117,26 +117,22 @@ public class Map extends JPanel {
         if (checkWin(HUMAN_DOT)){
             isGameOver = true;
             statusGameOver  = STATUS_HUMAN_WIN;
-            System.out.println("YOU Win !!!!");
             return;
         }
         if (checkFullField()){
             isGameOver = true;
             statusGameOver = STATUS_DRAW;
-            System.out.println("Draw game");
             return;
         }
             turnAi();
             if (checkWin(AI_DOT)) {
                 isGameOver = true;
                 statusGameOver = STATUS_AI_WIN;
-                System.out.println("Compyter Win !!!!");
                 return;
             }
             if (checkFullField()) {
                 isGameOver = true;
                 statusGameOver = STATUS_DRAW;
-                System.out.println("Draw game");
                 return;
             }
     }
@@ -162,7 +158,6 @@ public class Map extends JPanel {
             if (checkFullField()){
                 isGameOver = true;
                 statusGameOver = STATUS_DRAW;
-                System.out.println("Draw game");
                 return;
             }
     }
