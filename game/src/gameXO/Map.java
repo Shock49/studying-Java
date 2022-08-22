@@ -63,6 +63,7 @@ public class Map extends JPanel {
         setBackground(Color.BLACK);
     }
     void startGame(int mod, int fieldSizeX, int fieldSizeY, int winLength){
+        ClassLoader cl = this.getClass().getClassLoader();
 
         this.fieldSizeX = fieldSizeX;
         this.fieldSizeY = fieldSizeY;
@@ -76,15 +77,15 @@ public class Map extends JPanel {
         this.moveNow = HUMAN_DOT;
         this.howMoveNext = -1;
         try {
-            circle = ImageIO.read(new File("game\\src\\gameXO\\image\\circle.png"));
-            cross = ImageIO.read(new File("game\\src\\gameXO\\image\\cross.png"));
-            ln_h = ImageIO.read(new File("game\\src\\gameXO\\image\\ln_h.png"));
-            ln_v = ImageIO.read(new File("game\\src\\gameXO\\image\\ln_v.png"));
-            draw = ImageIO.read(new File("game\\src\\gameXO\\image\\draw.png"));
-            lose = ImageIO.read(new File("game\\src\\gameXO\\image\\lose.png"));
-            win = ImageIO.read(new File("game\\src\\gameXO\\image\\win.png"));
-            player1 = ImageIO.read(new File("game\\src\\gameXO\\image\\player1.png"));
-            player2 = ImageIO.read(new File("game\\src\\gameXO\\image\\player2.png"));
+            circle = ImageIO.read(cl.getResource ("circle.png"));
+            cross = ImageIO.read(cl.getResource("cross.png"));
+            ln_h = ImageIO.read(cl.getResource("ln_h.png"));
+            ln_v = ImageIO.read(cl.getResource("ln_v.png"));
+            draw = ImageIO.read(cl.getResource("draw.png"));
+            lose = ImageIO.read(cl.getResource("lose.png"));
+            win = ImageIO.read(cl.getResource("win.png"));
+            player1 = ImageIO.read(cl.getResource("player1.png"));
+            player2 = ImageIO.read(cl.getResource("player2.png"));
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
